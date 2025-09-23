@@ -7,7 +7,7 @@ export default function PrivacyPage() {
       <h1 className="text-3xl font-bold mb-6">Privacy Policy</h1>
 
       <p className="mb-4">
-        aidley respects your privacy. This policy explains how we collect, use,
+        elivra respects your privacy. This policy explains how we collect, use,
         and protect the information you provide.
       </p>
 
@@ -39,7 +39,7 @@ export default function PrivacyPage() {
       <h2 className="text-2xl font-semibold mt-8 mb-4">5. Your Rights</h2>
       <p className="mb-4">
         You can request access, correction, or deletion of your information at
-        any time by emailing <a href="mailto:support@aidley.org" className="underline">support@aidley.org</a>.
+        any time by emailing <a href="mailto:support@elivra.org" className="underline">support@elivra.org</a>.
       </p>
 
       <h2 className="text-2xl font-semibold mt-8 mb-4">6. Developer & Maintenance Disclaimer</h2>
@@ -57,7 +57,7 @@ export default function PrivacyPage() {
       <h2 className="text-2xl font-semibold mt-8 mb-4">7. Contact</h2>
       <p className="mb-4">
         Questions about this Privacy Policy? Contact us at{" "}
-        <a href="mailto:support@aidley.live" className="underline">support@aidley.live</a>.
+        <a href="mailto:support@elivra.live" className="underline">support@elivra.live</a>.
       </p>
     </main>
   );

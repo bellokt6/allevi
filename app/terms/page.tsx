@@ -7,19 +7,19 @@ export default function TermsPage() {
       <h1 className="text-3xl font-bold mb-6">Terms of Service</h1>
 
       <p className="mb-4">
-        Welcome to aidley. By using our platform to support humanitarian aid for
+        Welcome to elivra. By using our platform to support humanitarian aid for
         Gaza and Palestine refugees, you agree to these Terms of Service.
       </p>
 
       <h2 className="text-2xl font-semibold mt-8 mb-4">1. Purpose</h2>
       <p className="mb-4">
-        aidley exists to facilitate donations that directly support displaced
+        elivra exists to facilitate donations that directly support displaced
         and affected communities in Gaza and Palestine.
       </p>
 
       <h2 className="text-2xl font-semibold mt-8 mb-4">2. Donations</h2>
       <p className="mb-4">
-        Donations made through aidley are processed securely via Stripe and are
+        Donations made through elivra are processed securely via Stripe and are
         non-refundable except under specific circumstances outlined in our
         Refund Policy.
       </p>
@@ -32,7 +32,7 @@ export default function TermsPage() {
 
       <h2 className="text-2xl font-semibold mt-8 mb-4">4. Intellectual Property</h2>
       <p className="mb-4">
-        All content on aidley is the property of aidley unless otherwise stated.
+        All content on elivra is the property of elivra unless otherwise stated.
         Unauthorized use is prohibited.
       </p>
 
@@ -59,7 +59,7 @@ export default function TermsPage() {
       <h2 className="text-2xl font-semibold mt-8 mb-4">7. Contact</h2>
       <p className="mb-4">
         Questions? Email us at{" "}
-        <a href="mailto:support@aidley.live" className="underline">support@aidley.live</a>.
+        <a href="mailto:support@elivra.live" className="underline">support@elivra.live</a>.
       </p>
     </main>
   );

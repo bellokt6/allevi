@@ -7,7 +7,7 @@ export default function ShippingPage() {
       <h1 className="text-3xl font-bold mb-6">Shipping Policy</h1>
 
       <p className="mb-4">
-        aidley facilitates digital donations and does not ship physical goods.
+        elivra facilitates digital donations and does not ship physical goods.
       </p>
 
       <h2 className="text-2xl font-semibold mt-8 mb-4">Acknowledgment Receipts</h2>
@@ -31,7 +31,7 @@ export default function ShippingPage() {
       <h2 className="text-2xl font-semibold mt-8 mb-4">Contact</h2>
       <p className="mb-4">
         Questions? Email us at{" "}
-        <a href="mailto:support@aidley.live" className="underline">support@aidley.live</a>.
+        <a href="mailto:support@elivra.live" className="underline">support@elivra.live</a>.
       </p>
     </main>
   );
