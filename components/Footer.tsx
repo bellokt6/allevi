@@ -14,10 +14,10 @@ export default function Footer() {
           <p className="text-sm text-gray-500 mt-2">
             Contact us at:{" "}
             <a
-              href="mailto:support@elivra.live"
+              href="mailto:support@elivra.life"
               className="hover:underline text-blue-600"
             >
-              support@elivra.live
+              support@elivra.life
             </a>
           </p>
         </div>

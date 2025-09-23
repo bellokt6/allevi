@@ -57,7 +57,7 @@ export default function PrivacyPage() {
       <h2 className="text-2xl font-semibold mt-8 mb-4">7. Contact</h2>
       <p className="mb-4">
         Questions about this Privacy Policy? Contact us at{" "}
-        <a href="mailto:support@elivra.live" className="underline">support@elivra.live</a>.
+        <a href="mailto:support@elivra.life" className="underline">support@elivra.life</a>.
       </p>
     </main>
   );
