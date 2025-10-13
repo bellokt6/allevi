@@ -7,19 +7,19 @@ export default function TermsPage() {
       <h1 className="text-3xl font-bold mb-6">Terms of Service</h1>
 
       <p className="mb-4">
-        Welcome to elivra. By using our platform to support humanitarian aid for
+        Welcome to givev. By using our platform to support humanitarian aid for
         Gaza and Palestine refugees, you agree to these Terms of Service.
       </p>
 
       <h2 className="text-2xl font-semibold mt-8 mb-4">1. Purpose</h2>
       <p className="mb-4">
-        elivra exists to facilitate donations that directly support displaced
+        givev exists to facilitate donations that directly support displaced
         and affected communities in Gaza and Palestine.
       </p>
 
       <h2 className="text-2xl font-semibold mt-8 mb-4">2. Donations</h2>
       <p className="mb-4">
-        Donations made through elivra are processed securely via Stripe and are
+        Donations made through givev are processed securely via Stripe and are
         non-refundable except under specific circumstances outlined in our
         Refund Policy.
       </p>
@@ -32,7 +32,7 @@ export default function TermsPage() {
 
       <h2 className="text-2xl font-semibold mt-8 mb-4">4. Intellectual Property</h2>
       <p className="mb-4">
-        All content on elivra is the property of elivra unless otherwise stated.
+        All content on givev is the property of givev unless otherwise stated.
         Unauthorized use is prohibited.
       </p>
 
@@ -59,7 +59,7 @@ export default function TermsPage() {
       <h2 className="text-2xl font-semibold mt-8 mb-4">7. Contact</h2>
       <p className="mb-4">
         Questions? Email us at{" "}
-        <a href="mailto:support@elivra.life" className="underline">support@elivra.life</a>.
+        <a href="mailto:support@givev.life" className="underline">support@givev.life</a>.
       </p>
     </main>
   );

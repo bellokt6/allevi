@@ -16,7 +16,7 @@ const Navbar = () => {
               className="text-2xl font-bold text-slate-800 transition duration-300 hover:text-blue-600 flex items-center space-x-2"
             >
               <Heart className="w-6 h-6 text-blue-600" />
-              <span>Elivra</span>
+              <span>givev</span>
             </Link>
           </div>
 

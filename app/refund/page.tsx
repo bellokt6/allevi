@@ -7,14 +7,14 @@ export default function RefundPage() {
       <h1 className="text-3xl font-bold mb-6">Refund Policy</h1>
 
       <p className="mb-4">
-        Donations made to elivra are typically non-refundable as funds are
+        Donations made to givev are typically non-refundable as funds are
         allocated immediately to aid efforts.
       </p>
 
       <h2 className="text-2xl font-semibold mt-8 mb-4">Exceptional Cases</h2>
       <p className="mb-4">
         If you believe a donation was made in error, please contact us within 7
-        days at <a href="mailto:support@elivra.org" className="underline">support@elivra.org</a>. We will review requests on a case-by-case basis.
+        days at <a href="mailto:support@givev.org" className="underline">support@givev.org</a>. We will review requests on a case-by-case basis.
       </p>
 
       <h2 className="text-2xl font-semibold mt-8 mb-4">Processing Time</h2>
@@ -38,7 +38,7 @@ export default function RefundPage() {
       <h2 className="text-2xl font-semibold mt-8 mb-4">Contact</h2>
       <p className="mb-4">
         Questions about refunds? Email{" "}
-        <a href="mailto:support@elivra.life" className="underline">support@elivra.life</a>.
+        <a href="mailto:support@givev.life" className="underline">support@givev.life</a>.
       </p>
     </main>
   );

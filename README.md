@@ -1,4 +1,4 @@
-# elivra
+# givev
 
 
 ## Table of Contents
@@ -28,12 +28,12 @@
 
 ## Installation
 
-To get started with elivra, follow these steps:
+To get started with givev, follow these steps:
 
 1. Clone the repository:
    
 Contributing
-We welcome contributions to elivra! If you have suggestions for improvements or new features, please open an issue or submit a pull request.
+We welcome contributions to givev! If you have suggestions for improvements or new features, please open an issue or submit a pull request.
 
 Fork the repository.
 

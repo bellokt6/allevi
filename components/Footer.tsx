@@ -12,7 +12,7 @@ export default function Footer() {
           <div className="md:col-span-2">
             <div className="flex items-center space-x-2 mb-4">
               <Heart className="w-6 h-6 text-blue-400" />
-              <h3 className="text-2xl font-bold">Elivra</h3>
+              <h3 className="text-2xl font-bold">givev</h3>
             </div>
             <p className="text-slate-300 mb-6 max-w-md">
               Supporting Gaza and Palestine refugees through trusted, transparent donations.
@@ -23,8 +23,8 @@ export default function Footer() {
             <div className="space-y-3">
               <div className="flex items-center space-x-3 text-slate-300">
                 <Mail className="w-4 h-4 text-blue-400" />
-                <a href="mailto:support@elivra.life" className="hover:text-blue-400 transition-colors">
-                  support@elivra.life
+                <a href="mailto:support@givev.life" className="hover:text-blue-400 transition-colors">
+                  support@givev.life
                 </a>
               </div>
               <div className="flex items-center space-x-3 text-slate-300">
@@ -92,7 +92,7 @@ export default function Footer() {
             </div>
 
             <div className="text-sm text-slate-400">
-              <p>© {new Date().getFullYear()} Elivra. All rights reserved.</p>
+              <p>© {new Date().getFullYear()} givev. All rights reserved.</p>
             </div>
           </div>
         </div>
