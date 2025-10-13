@@ -93,7 +93,7 @@ export default function SuccessPage() {
                 <div className="py-2">
                   <span className="text-slate-600 block mb-2">Message:</span>
                   <p className="text-slate-700 italic bg-slate-50 p-3 rounded-lg">
-                    "{donationData.message}"
+                    &ldquo;{donationData.message}&rdquo;
                   </p>
                 </div>
               )}

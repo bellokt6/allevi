@@ -174,7 +174,7 @@ const DonationProgress: React.FC = () => {
                           </div>
                         </div>
                         {donor.message && (
-                          <p className="text-slate-700 italic mt-2">"{donor.message}"</p>
+                          <p className="text-slate-700 italic mt-2">&ldquo;{donor.message}&rdquo;</p>
                         )}
                       </div>
                       <div className="text-right">
