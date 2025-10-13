@@ -13,8 +13,7 @@
 
 ## Features
 
-- **Multiple life Cart POS**: Manage multiple transactions effortlessly in real-time.
-- **User Authentication**: Secure login and registration using Firebase authentication.
+- *tication**: Secure login and registration using Firebase authentication.
 - **Responsive Design**: Optimized for both desktop and mobile devices.
 - **Elegant UI**: A modern and sophisticated user interface.
 - **Transaction Tracking**: Keep track of all user transactions with ease.
