@@ -99,9 +99,9 @@ export default function Footer() {
       </div>
 
       {/* Bottom Disclaimer */}
-      <div className="bg-slate-800 border-t border-slate-700">
-        <div className="max-w-7xl mx-auto px-6 py-4">
-          <p className="text-xs text-slate-400 text-center leading-relaxed">
+      <div className="bg-slate-900 ">
+        <div className="max-w-7xl mx-auto px-2 py-4">
+          <p className="text-xs text-slate-800 text-center leading-relaxed">
             This website was developed and is technically maintained by an independent contractor,
             who has no ownership interest and is not responsible for donations, transactions,
             or operational decisions. All donations are processed securely and transparently.
