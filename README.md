@@ -32,9 +32,7 @@
 To get started with elivra, follow these steps:
 
 1. Clone the repository:
-   ```bash
-   git clone https://github.com/Alex-Inem/elivra.git
-
+   
 Contributing
 We welcome contributions to elivra! If you have suggestions for improvements or new features, please open an issue or submit a pull request.
 
