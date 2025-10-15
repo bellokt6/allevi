@@ -11,13 +11,6 @@
 - [License](#license)
 - [Contact](#contact)
 
-## Features
-
-- *tication**: Secure login and registration using Firebase authentication.
-- **Responsive Design**: Optimized for both desktop and mobile devices.
-- **Elegant UI**: A modern and sophisticated user interface.
-- **Transaction Tracking**: Keep track of all user transactions with ease.
-- **Dynamic Currency Conversion**: Integrated with Open Exchange Rates API for accurate currency conversion.
 
 ## Technologies Used
 
