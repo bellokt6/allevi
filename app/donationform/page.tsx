@@ -12,7 +12,17 @@ const DonationForm: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!name || !amount) return;
+
+    // Enhanced validation
+    if (!name || name.trim() === "") {
+      alert("Please enter your name.");
+      return;
+    }
+
+    if (!amount || Number(amount) <= 0 || isNaN(Number(amount))) {
+      alert("Please enter a valid donation amount greater than $0.");
+      return;
+    }
 
     setIsSubmitting(true);
 
@@ -21,9 +31,9 @@ const DonationForm: React.FC = () => {
       localStorage.setItem(
         "donationData",
         JSON.stringify({
-          name,
+          name: name.trim(),
           amount: Number(amount),
-          message,
+          message: message.trim(),
           createdAt: Date.now(), // store as timestamp
         })
       );
@@ -139,7 +149,7 @@ const DonationForm: React.FC = () => {
 
             <button
               type="submit"
-              disabled={isSubmitting}
+              disabled={isSubmitting || !name.trim() || !amount || Number(amount) <= 0}
               className="w-full professional-button text-lg py-4 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isSubmitting ? (

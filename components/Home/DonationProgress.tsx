@@ -26,25 +26,33 @@ const DonationProgress: React.FC = () => {
     const fetchDonors = async () => {
       try {
         const querySnapshot = await getDocs(collection(db, "donations"));
-        const donorList: Donor[] = querySnapshot.docs.map(doc => {
-          const data = doc.data();
-          let createdAt: Date;
+        const donorList: Donor[] = querySnapshot.docs
+          .map(doc => {
+            const data = doc.data();
+            let createdAt: Date;
 
-          if (data.createdAt && data.createdAt.toDate) {
-            createdAt = data.createdAt.toDate();
-          } else if (typeof data.createdAt === "number") {
-            createdAt = new Date(data.createdAt);
-          } else {
-            createdAt = new Date();
-          }
+            if (data.createdAt && data.createdAt.toDate) {
+              createdAt = data.createdAt.toDate();
+            } else if (typeof data.createdAt === "number") {
+              createdAt = new Date(data.createdAt);
+            } else {
+              createdAt = new Date();
+            }
 
-          return {
-            name: data.name || "Anonymous",
-            message: data.message || "",
-            amount: data.amount,
-            createdAt,
-          };
-        });
+            return {
+              name: data.name,
+              message: data.message || "",
+              amount: data.amount,
+              createdAt,
+            };
+          })
+          .filter(donor =>
+            donor.name &&
+            donor.name.trim() !== "" &&
+            typeof donor.amount === 'number' &&
+            !isNaN(donor.amount) &&
+            donor.amount > 0
+          );
 
         donorList.sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
         setDonors(donorList);
@@ -66,7 +74,7 @@ const DonationProgress: React.FC = () => {
   }, []);
 
   const totalRaised = donors.reduce((sum, donor) => sum + donor.amount, 0);
-  const percentage = Math.min((totalRaised / GOAL) * 100, 100);
+  const percentage = totalRaised > 0 ? Math.min((totalRaised / GOAL) * 100, 100) : 0;
   const totalDonations = donors.length;
   const totalComments = donors.filter(donor => donor.message?.trim() !== "").length;
 
