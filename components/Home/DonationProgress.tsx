@@ -39,7 +39,7 @@ const DonationProgress: React.FC = () => {
           }
 
           return {
-            name: data.name,
+            name: data.name || "Anonymous",
             message: data.message || "",
             amount: data.amount,
             createdAt,
@@ -163,11 +163,11 @@ const DonationProgress: React.FC = () => {
                         <div className="flex items-center space-x-3 mb-2">
                           <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
                             <span className="text-blue-600 font-semibold text-sm">
-                              {donor.name.charAt(0).toUpperCase()}
+                              {donor.name?.charAt(0)?.toUpperCase() || "A"}
                             </span>
                           </div>
                           <div>
-                            <p className="font-semibold text-slate-900">{donor.name}</p>
+                            <p className="font-semibold text-slate-900">{donor.name || "Anonymous"}</p>
                             <p className="text-sm text-slate-500">
                               {formatDistanceToNow(donor.createdAt, { addSuffix: true })}
                             </p>
