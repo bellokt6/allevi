@@ -48,9 +48,6 @@ const Dashboard: React.FC = () => {
         return localStorage.getItem("userStatus") || "active";
     };
 
-    const getUserRole = () => {
-        return localStorage.getItem("userRole") || "user";
-    };
 
     const canDelete = () => {
         const status = getUserStatus();
@@ -350,8 +347,8 @@ const Dashboard: React.FC = () => {
                                 Welcome, {currentUser?.displayName || "Admin"}
                             </span>
                             <span className={`px-2 py-1 text-xs font-medium rounded-full ${getUserStatus() === "active" ? "bg-green-100 text-green-800" :
-                                    getUserStatus() === "limited" ? "bg-yellow-100 text-yellow-800" :
-                                        "bg-red-100 text-red-800"
+                                getUserStatus() === "limited" ? "bg-yellow-100 text-yellow-800" :
+                                    "bg-red-100 text-red-800"
                                 }`}>
                                 {getUserStatus().toUpperCase()}
                             </span>

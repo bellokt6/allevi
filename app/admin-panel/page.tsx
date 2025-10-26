@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import { useToast } from "@/components/ui/toast";
@@ -104,7 +104,7 @@ const AdminPanel: React.FC = () => {
         }
     ];
 
-    const loadUsers = async () => {
+    const loadUsers = useCallback(async () => {
         try {
             const usersSnapshot = await getDocs(collection(db, "users"));
             const usersList: User[] = [];
@@ -135,7 +135,7 @@ const AdminPanel: React.FC = () => {
             // Fallback to mock data if Firestore fails
             setUsers(mockUsers);
         }
-    };
+    }, []);
 
     useEffect(() => {
         if (!currentUser) {
