@@ -67,11 +67,6 @@ const Dashboard: React.FC = () => {
         return status === "active";
     };
 
-    const canView = () => {
-        const status = getUserStatus();
-        return status === "active" || status === "limited";
-    };
-
     useEffect(() => {
         // Check if user is logged in
         if (!currentUser) {
@@ -80,7 +75,6 @@ const Dashboard: React.FC = () => {
         }
 
         // Check user permissions
-        const userRole = getUserRole();
         const userStatus = getUserStatus();
 
         if (userStatus === "blocked") {

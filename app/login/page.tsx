@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
-import { db, collection, getDocs, query, where } from "@/firebaseConfig";
+import { db, collection, getDocs } from "@/firebaseConfig";
 
 // Hardcoded credentials
 const ADMIN_CREDENTIALS = {
@@ -138,7 +138,7 @@ const LoginPage: React.FC = () => {
                     setError("Login failed. Please try again.");
                 }
             }
-        } catch (error) {
+        } catch {
             setError("Login failed. Please try again.");
         } finally {
             setIsLoading(false);

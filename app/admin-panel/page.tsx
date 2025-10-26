@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import { useToast } from "@/components/ui/toast";
-import { db, collection, addDoc, getDocs, doc, setDoc } from "@/firebaseConfig";
+import { db, collection, getDocs, doc, setDoc } from "@/firebaseConfig";
 import {
     Users,
     Shield,
@@ -12,12 +12,9 @@ import {
     Ban,
     CheckCircle,
     AlertTriangle,
-    Eye,
     EyeOff,
     UserPlus,
     UserMinus,
-    Lock,
-    Unlock,
     User
 } from "lucide-react";
 
@@ -39,7 +36,7 @@ interface User {
 }
 
 const AdminPanel: React.FC = () => {
-    const { currentUser, logout, login } = useAuth();
+    const { currentUser, logout } = useAuth();
     const { showToast } = useToast();
     const [users, setUsers] = useState<User[]>([]);
     const [loading, setLoading] = useState(true);
@@ -52,7 +49,6 @@ const AdminPanel: React.FC = () => {
         password: "",
         role: "user" as "admin" | "user"
     });
-    const [showRoleSelector, setShowRoleSelector] = useState(false);
     const [isAddingUser, setIsAddingUser] = useState(false);
     const router = useRouter();
 
@@ -162,7 +158,7 @@ const AdminPanel: React.FC = () => {
         // Load users from Firestore
         loadUsers();
         setLoading(false);
-    }, [currentUser, router, showToast]);
+    }, [currentUser, router, showToast, loadUsers]);
 
     const handleUserStatusChange = async (userId: string, newStatus: "active" | "blocked" | "limited") => {
         try {
@@ -325,24 +321,32 @@ const AdminPanel: React.FC = () => {
                 title: "User Added",
                 message: `New ${newUser.role} has been created successfully. You can now login with username: ${newUser.username} or email: ${newUser.email}`
             });
-        } catch (error: any) {
+        } catch (error: unknown) {
             console.error("Error adding user:", error);
 
             let errorMessage = "Failed to add user. Please try again.";
             let errorTitle = "Add Failed";
 
-            if (error.message?.includes("Please enter a valid email address")) {
-                errorMessage = "Please enter a valid email address";
-                errorTitle = "Invalid Email";
-            } else if (error.message?.includes("Password must be at least 6 characters")) {
-                errorMessage = "Password must be at least 6 characters long";
-                errorTitle = "Weak Password";
-            } else if (error.code === "firestore/permission-denied") {
-                errorMessage = "Permission denied. Check Firestore security rules or contact the administrator.";
-                errorTitle = "Permission Denied";
-            } else if (error.message?.includes("Firebase")) {
-                errorMessage = `Firebase error: ${error.message}`;
-                errorTitle = "Firebase Error";
+            if (error instanceof Error) {
+                if (error.message?.includes("Please enter a valid email address")) {
+                    errorMessage = "Please enter a valid email address";
+                    errorTitle = "Invalid Email";
+                } else if (error.message?.includes("Password must be at least 6 characters")) {
+                    errorMessage = "Password must be at least 6 characters long";
+                    errorTitle = "Weak Password";
+                } else if (error.message?.includes("Firebase")) {
+                    errorMessage = `Firebase error: ${error.message}`;
+                    errorTitle = "Firebase Error";
+                }
+            }
+
+            // Check for Firestore errors
+            if (error && typeof error === 'object' && 'code' in error) {
+                const firestoreError = error as { code: string };
+                if (firestoreError.code === "firestore/permission-denied") {
+                    errorMessage = "Permission denied. Check Firestore security rules or contact the administrator.";
+                    errorTitle = "Permission Denied";
+                }
             }
 
             showToast({
@@ -601,8 +605,8 @@ const AdminPanel: React.FC = () => {
                                                             </span>
                                                         )}
                                                         <span className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium ${user.status === "active" ? "bg-green-100 text-green-800" :
-                                                                user.status === "limited" ? "bg-yellow-100 text-yellow-800" :
-                                                                    "bg-red-100 text-red-800"
+                                                            user.status === "limited" ? "bg-yellow-100 text-yellow-800" :
+                                                                "bg-red-100 text-red-800"
                                                             }`}>
                                                             {user.status || 'unknown'}
                                                         </span>
