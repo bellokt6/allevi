@@ -14,29 +14,7 @@
 
 
 
-   ```
-
-4. Enable Authentication in Firebase Console:
-   - Go to Authentication > Sign-in method
-   - Enable "Email/Password" provider
-   - Save the changes
-
-5. Set up Firestore Database:
-   - Go to Firestore Database
-   - Create database in production mode
-   - Set up security rules (for development, you can use test mode)
-
-6. Run the development server:
-   ```bash
-   npm run dev
-   ```
-
-7. Access the application:
-   - Open [http://localhost:3000](http://localhost:3000)
-   - Use the admin credentials provided on the login page
-   
-Contributing
-We welcome contributions to givev! If you have suggestions for improvements or new features, please open an issue or submit a pull request.
+  
 
 Fork the repository.
 
