@@ -75,7 +75,7 @@ const LoginPage: React.FC = () => {
                     console.log("Found users in database:", usersSnapshot.size);
 
                     // Log all users for debugging
-                    usersSnapshot.forEach((doc, index) => {
+                    usersSnapshot.docs.forEach((doc, index) => {
                         const userData = doc.data();
                         console.log(`User ${index + 1}:`, {
                             id: userData.id,
