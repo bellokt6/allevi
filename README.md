@@ -12,18 +12,7 @@
 
 ## Installation
 
-To get started with givev, follow these steps:
 
-1. Clone the repository:
-   ```bash
-   git clone <repository-url>
-   cd elivra
-   ```
-
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
 
 3. Set up Firebase configuration:
    - Go to [Firebase Console](https://console.firebase.google.com/)
