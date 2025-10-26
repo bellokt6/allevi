@@ -7,6 +7,8 @@ import { User } from 'firebase/auth'; // Import Firebase's user-related types
 // Define the context interface
 interface AuthContextProps {
   currentUser: User | null;
+  login: (user: any) => Promise<void>;
+  logout: () => Promise<void>;
 }
 
 // Create the context with default value

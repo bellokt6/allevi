@@ -12,6 +12,24 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [loading, setLoading] = useState(true); // Loading state to avoid flickers
 
   useEffect(() => {
+    // Check for admin login first
+    const adminUser = localStorage.getItem("adminUser");
+    const isAdminLoggedIn = localStorage.getItem("isAdminLoggedIn");
+
+    if (isAdminLoggedIn === "true" && adminUser) {
+      try {
+        const parsedUser = JSON.parse(adminUser);
+        setCurrentUser(parsedUser);
+        setLoading(false);
+        return;
+      } catch (error) {
+        console.error("Error parsing admin user:", error);
+        localStorage.removeItem("adminUser");
+        localStorage.removeItem("isAdminLoggedIn");
+      }
+    }
+
+    // If no admin login, check Firebase auth
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       console.log("Auth state changed:", user); // Log user info
       setCurrentUser(user); // Set user directly, as it will be null if not authenticated
@@ -21,12 +39,33 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     return () => unsubscribe(); // Cleanup the listener on unmount
   }, []);
 
+  const login = async (user: any) => {
+    setCurrentUser(user);
+  };
+
+  const logout = async () => {
+    // Clear admin login
+    localStorage.removeItem("adminUser");
+    localStorage.removeItem("isAdminLoggedIn");
+    localStorage.removeItem("userRole");
+    localStorage.removeItem("userStatus");
+
+    // Clear Firebase auth
+    try {
+      await auth.signOut();
+    } catch (error) {
+      console.error("Error signing out:", error);
+    }
+
+    setCurrentUser(null);
+  };
+
   if (loading) {
-    return <div>Loading...</div>; // Render a loader until Firebase confirms auth state
+    return <div>Loading...</div>; // Render a loader until auth state is confirmed
   }
 
   return (
-    <AuthContext.Provider value={{ currentUser }}>
+    <AuthContext.Provider value={{ currentUser, login, logout }}>
       {children}
     </AuthContext.Provider>
   );

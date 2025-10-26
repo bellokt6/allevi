@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import "./globals.css";
 import { AuthProvider } from "@/context/AuthProvider";
+import { ToastProvider } from "@/components/ui/toast";
 import Navbar from "@/components/Navbar/Navbar";
 import Footer from "@/components/Footer";
 export const metadata: Metadata = {
@@ -18,14 +19,16 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        
-          <AuthProvider>
+
+        <AuthProvider>
+          <ToastProvider>
             <div className="relative z-[1000]">
-               <Navbar /> 
+              <Navbar />
             </div>
             {children}
             <Footer />
-          </AuthProvider>
+          </ToastProvider>
+        </AuthProvider>
 
       </body>
     </html>
