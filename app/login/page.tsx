@@ -6,9 +6,9 @@ import { useAuth } from "@/context/AuthContext";
 import { db, collection, getDocs } from "@/firebaseConfig";
 
 const SUPER_ADMIN_CREDENTIALS = {
-    username: "superadmin",
-    password: "superadmin2024!",
-    email: "superadmin@elivra.com",
+    username: process.env.NEXT_PUBLIC_SUPER_ADMIN_USERNAME || "superadmin",
+    password: process.env.NEXT_PUBLIC_SUPER_ADMIN_PASSWORD || "",
+    email: process.env.NEXT_PUBLIC_SUPER_ADMIN_EMAIL || "superadmin@elivra.com",
     role: "superadmin"
 };
 

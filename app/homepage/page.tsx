@@ -13,7 +13,7 @@ const DonationHome: React.FC = () => {
       databaseLockedAt: null as number | null,
       maintenanceMode: false,
       maintenanceMessage: "The site is currently down for scheduled maintenance.",
-      stripeLink: "https://buy.stripe.com/cNieVf4AxfzEeIEaVF7Re01"
+      stripeLink: process.env.NEXT_PUBLIC_STRIPE_LINK || ""
   });
 
   useEffect(() => {
