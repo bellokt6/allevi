@@ -38,18 +38,21 @@ const Auth = () => {
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
         const user = userCredential.user;
 
-        // Store the username in Firestore under the user's UID
+        // Store the username and default user data in Firestore under the user's UID
         await setDoc(doc(db, 'users', user.uid), {
           username: username,
           email: email,
+          role: "user",
+          status: "active",
+          createdAt: new Date()
         });
 
         alert('Registration successful');
-        router.push('/'); // Redirect to homepage after registration
+        router.push('/dashboard'); // Normal users go directly to dashboard
       } else {
         await signInWithEmailAndPassword(auth, email, password);
         alert('Login successful');
-        router.push('/'); // Redirect to homepage after login
+        router.push('/dashboard'); // Normal users go directly to dashboard
       }
     } catch (error) {
       console.error('Authentication Error', error);
@@ -61,7 +64,7 @@ const Auth = () => {
     try {
       await signInWithPopup(auth, googleProvider);
       alert('Google login successful');
-      router.push('/'); // Redirect to homepage after Google login
+      router.push('/dashboard'); // Normal users go directly to dashboard
     } catch (error) {
       console.error('Google login error', error);
     }
@@ -79,7 +82,7 @@ const Auth = () => {
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               required
-              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
             />
           )}
           <input
@@ -88,7 +91,7 @@ const Auth = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
           />
           <input
             type="password"
@@ -96,9 +99,9 @@ const Auth = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
-            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
           />
-          <button type="submit" className="w-full p-3 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition">
+          <button type="submit" className="w-full p-3 bg-orange-600 text-white rounded-lg hover:bg-orange-500 transition">
             {isRegistering ? 'Register' : 'Sign In'}
           </button>
         </form>
@@ -107,7 +110,7 @@ const Auth = () => {
           Sign in with Google
         </button>
 
-        <button onClick={() => setIsRegistering(!isRegistering)} className="mt-4 text-blue-600 hover:underline">
+        <button onClick={() => setIsRegistering(!isRegistering)} className="mt-4 text-orange-600 hover:underline">
           {isRegistering ? 'Already have an account? Sign In' : 'Don’t have an account? Register'}
         </button>
       </motion.div>

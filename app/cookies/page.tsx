@@ -5,7 +5,7 @@ export default function CookiesPage() {
     <main className="max-w-3xl mx-auto py-12 px-4">
       <h1 className="text-3xl font-bold mb-6">Cookie Policy</h1>
       <p className="mb-4">
-        givev uses cookies to enhance your experience and to track basic analytics data.
+        allevi uses cookies to enhance your experience and to track basic analytics data.
       </p>
 
       <h2 className="text-2xl font-semibold mt-8 mb-4">Cookies We Use</h2>
@@ -20,7 +20,7 @@ export default function CookiesPage() {
 
       <h2 className="text-2xl font-semibold mt-8 mb-4">Contact</h2>
       <p className="mb-4">
-        Questions about our Cookie Policy? Email support@givev.life
+        Questions about our Cookie Policy? Email support@allevi.site
       </p>
     </main>
   );

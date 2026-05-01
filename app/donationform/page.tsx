@@ -1,17 +1,41 @@
 "use client";
 
-import React, { useState } from "react";
-
-const stripePaymentLink = "https://buy.stripe.com/aEUdTKeke6nXfnOaEE";
+import React, { useState, useEffect } from "react";
+import { db, doc, getDoc } from "@/firebaseConfig";
 
 const DonationForm: React.FC = () => {
   const [name, setName] = useState("");
   const [amount, setAmount] = useState("");
   const [message, setMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [systemSettings, setSystemSettings] = useState({
+      databaseLocked: false,
+      databaseLockMessage: "The platform is currently down for maintenance.",
+      stripeLink: "https://buy.stripe.com/cNieVf4AxfzEeIEaVF7Re01"
+  });
+
+  useEffect(() => {
+      const loadSettings = async () => {
+          try {
+              const settingsDoc = await getDoc(doc(db, "settings", "global"));
+              if (settingsDoc.exists()) {
+                  setSystemSettings(prev => ({ ...prev, ...settingsDoc.data() }));
+              }
+          } catch (error) {
+              console.error("Failed to load settings:", error);
+          }
+      };
+      
+      loadSettings();
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (systemSettings.databaseLocked) {
+        alert(systemSettings.databaseLockMessage || "Donations are temporarily out of service.");
+        return;
+    }
 
     // Enhanced validation
     if (!name || name.trim() === "") {
@@ -39,7 +63,7 @@ const DonationForm: React.FC = () => {
       );
 
       // Redirect to Stripe payment
-      window.location.href = stripePaymentLink;
+      window.location.href = systemSettings.stripeLink || "https://buy.stripe.com/cNieVf4AxfzEeIEaVF7Re01";
     } catch (error) {
       console.error("Failed to save donation:", error);
       alert("Something went wrong while saving your donation. Please try again.");
@@ -90,7 +114,7 @@ const DonationForm: React.FC = () => {
                   id="name"
                   type="text"
                   placeholder="Enter your full name"
-                  className="w-full p-4 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                  className="w-full p-4 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-colors"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   required
@@ -109,7 +133,7 @@ const DonationForm: React.FC = () => {
                     placeholder="0.00"
                     min="1"
                     step="0.01"
-                    className="w-full p-4 pl-8 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                    className="w-full p-4 pl-8 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-colors"
                     value={amount}
                     onChange={(e) => setAmount(e.target.value)}
                     required
@@ -125,7 +149,7 @@ const DonationForm: React.FC = () => {
                 <textarea
                   id="message"
                   placeholder="Share a message of hope and support..."
-                  className="w-full p-4 border border-slate-300 rounded-lg h-24 resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                  className="w-full p-4 border border-slate-300 rounded-lg h-24 resize-none focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-colors"
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                 />
@@ -133,14 +157,14 @@ const DonationForm: React.FC = () => {
             </div>
 
             {/* Security Notice */}
-            <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+            <div className="bg-orange-50 border border-orange-200 rounded-lg p-4">
               <div className="flex items-start space-x-3">
-                <svg className="w-5 h-5 text-blue-600 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                <svg className="w-5 h-5 text-orange-600 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />
                 </svg>
                 <div>
-                  <h4 className="text-sm font-medium text-blue-900">Secure & Protected</h4>
-                  <p className="text-sm text-blue-700 mt-1">
+                  <h4 className="text-sm font-medium text-orange-900">Secure & Protected</h4>
+                  <p className="text-sm text-orange-700 mt-1">
                     Your donation is processed securely through Stripe. All transactions are encrypted and protected.
                   </p>
                 </div>

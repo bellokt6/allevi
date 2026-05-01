@@ -1,9 +1,10 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { db, collection, getDocs } from "@/firebaseConfig";
+import { db, collection, getDocs, doc, getDoc } from "@/firebaseConfig";
 import { formatDistanceToNow } from "date-fns";
 import Link from "next/link";
+import { LockClosedIcon } from '@heroicons/react/24/outline';
 
 interface Donor {
   name: string;
@@ -21,6 +22,15 @@ const DonationProgress: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [, setTimeUpdateTick] = useState(0);
+  const [systemSettings, setSystemSettings] = useState({
+      databaseLocked: false,
+      databaseLockMessage: "The platform is currently down for maintenance.",
+      databaseLockedAt: null as number | null,
+      donationsLoadingErrorMessage: "error loading donations",
+      maintenanceMode: false,
+      maintenanceMessage: "The site is currently down for scheduled maintenance.",
+      stripeLink: "https://buy.stripe.com/cNieVf4AxfzEeIEaVF7Re01"
+  });
 
   useEffect(() => {
     const fetchDonors = async () => {
@@ -58,13 +68,33 @@ const DonationProgress: React.FC = () => {
         setDonors(donorList);
       } catch (err) {
         console.error("Failed to fetch donors:", err);
-        setError("Failed to load donor data. Please try again later.");
+        setError(`Failed to load donor data. Details: ${err instanceof Error ? err.message : String(err)}`);
       } finally {
         setLoading(false);
       }
     };
 
+    const loadSettings = async () => {
+        try {
+            const settingsDoc = await getDoc(doc(db, "settings", "global"));
+            if (settingsDoc.exists()) {
+                const data = settingsDoc.data();
+                setSystemSettings(prev => ({ ...prev, ...data }));
+                if (data.databaseLocked && data.databaseLockedAt) {
+                    const lockDuration = Date.now() - data.databaseLockedAt;
+                    const oneDay = 24 * 60 * 60 * 1000;
+                    if (lockDuration < oneDay) {
+                        setError(data.donationsLoadingErrorMessage || "error loading donations");
+                    }
+                }
+            }
+        } catch (error) {
+            console.error("Failed to load settings:", error);
+        }
+    };
+
     fetchDonors();
+    loadSettings();
 
     const interval = setInterval(() => {
       setTimeUpdateTick(prev => prev + 1);
@@ -108,7 +138,7 @@ const DonationProgress: React.FC = () => {
           <div className="max-w-2xl mx-auto">
             <div className="w-full bg-slate-200 rounded-full h-8 overflow-hidden shadow-inner">
               <div
-                className="bg-gradient-to-r from-blue-600 to-blue-700 h-full text-white text-sm font-semibold flex items-center justify-center transition-all duration-1000 ease-out"
+                className="bg-gradient-to-r from-orange-600 to-orange-700 h-full text-white text-sm font-semibold flex items-center justify-center transition-all duration-1000 ease-out"
                 style={{ width: `${percentage}%` }}
               >
                 {Math.floor(percentage)}%
@@ -169,8 +199,8 @@ const DonationProgress: React.FC = () => {
                     <div className="flex justify-between items-start">
                       <div className="flex-1">
                         <div className="flex items-center space-x-3 mb-2">
-                          <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
-                            <span className="text-blue-600 font-semibold text-sm">
+                          <div className="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center">
+                            <span className="text-orange-600 font-semibold text-sm">
                               {donor.name?.charAt(0)?.toUpperCase() || "A"}
                             </span>
                           </div>
@@ -186,7 +216,7 @@ const DonationProgress: React.FC = () => {
                         )}
                       </div>
                       <div className="text-right">
-                        <p className="text-lg font-bold text-blue-600">${donor.amount}</p>
+                        <p className="text-lg font-bold text-orange-600">${donor.amount}</p>
                         <p className="text-xs text-slate-500">donated</p>
                       </div>
                     </div>

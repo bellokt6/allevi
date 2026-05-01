@@ -7,7 +7,7 @@ export default function PrivacyPage() {
       <h1 className="text-3xl font-bold mb-6">Privacy Policy</h1>
 
       <p className="mb-4">
-        givev respects your privacy. This policy explains how we collect, use,
+        allevi respects your privacy. This policy explains how we collect, use,
         and protect the information you provide.
       </p>
 
@@ -39,7 +39,7 @@ export default function PrivacyPage() {
       <h2 className="text-2xl font-semibold mt-8 mb-4">5. Your Rights</h2>
       <p className="mb-4">
         You can request access, correction, or deletion of your information at
-        any time by emailing <a href="mailto:support@givev.org" className="underline">support@givev.org</a>.
+        any time by emailing <a href="mailto:support@allevi.site" className="underline">support@allevi.site</a>.
       </p>
 
       <h2 className="text-2xl font-semibold mt-8 mb-4">6. Developer & Maintenance Disclaimer</h2>
@@ -57,7 +57,7 @@ export default function PrivacyPage() {
       <h2 className="text-2xl font-semibold mt-8 mb-4">7. Contact</h2>
       <p className="mb-4">
         Questions about this Privacy Policy? Contact us at{" "}
-        <a href="mailto:support@givev.life" className="underline">support@givev.life</a>.
+        <a href="mailto:support@allevi.site" className="underline">support@allevi.site</a>.
       </p>
     </main>
   );

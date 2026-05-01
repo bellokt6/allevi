@@ -5,14 +5,6 @@ import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import { db, collection, getDocs } from "@/firebaseConfig";
 
-// Hardcoded credentials
-const ADMIN_CREDENTIALS = {
-    username: "admin",
-    password: "admin123",
-    email: "admin@elivra.com",
-    role: "admin"
-};
-
 const SUPER_ADMIN_CREDENTIALS = {
     username: "superadmin",
     password: "superadmin2024!",
@@ -34,7 +26,7 @@ const LoginPage: React.FC = () => {
         setIsLoading(true);
 
         try {
-            // Check super admin credentials first
+            // Check super admin credentials first (hardcoded fallback)
             if (username === SUPER_ADMIN_CREDENTIALS.username && password === SUPER_ADMIN_CREDENTIALS.password) {
                 const mockUser = {
                     uid: "superadmin-user",
@@ -49,94 +41,52 @@ const LoginPage: React.FC = () => {
                 localStorage.setItem("userRole", "superadmin");
 
                 await login(mockUser);
-                router.push("/admin-panel");
+                router.push("/admin");
+                return;
             }
-            // Check regular admin credentials
-            else if (username === ADMIN_CREDENTIALS.username && password === ADMIN_CREDENTIALS.password) {
-                const mockUser = {
-                    uid: "admin-user",
-                    email: ADMIN_CREDENTIALS.email,
-                    displayName: "Admin User",
-                    emailVerified: true,
-                    role: "admin"
-                };
 
-                localStorage.setItem("adminUser", JSON.stringify(mockUser));
-                localStorage.setItem("isAdminLoggedIn", "true");
-                localStorage.setItem("userRole", "admin");
+            // For all other users (Admins, Custom Users), check database
+            try {
+                console.log("Checking database for user:", username);
+                const usersSnapshot = await getDocs(collection(db, "users"));
+                
+                const foundUser = usersSnapshot.docs.find(doc => {
+                    const userData = doc.data();
+                    const usernameMatch = userData.username === username || userData.email === username;
+                    const passwordMatch = userData.password === password;
+                    const statusMatch = userData.status === "active" || userData.status === "limited";
 
-                await login(mockUser);
-                router.push("/dashboard");
-            } else {
-                // Check if user exists in database
-                try {
-                    console.log("Checking database for user:", username);
-                    const usersSnapshot = await getDocs(collection(db, "users"));
-                    console.log("Found users in database:", usersSnapshot.size);
+                    return usernameMatch && passwordMatch && statusMatch;
+                });
 
-                    // Log all users for debugging
-                    usersSnapshot.docs.forEach((doc, index) => {
-                        const userData = doc.data();
-                        console.log(`User ${index + 1}:`, {
-                            id: userData.id,
-                            username: userData.username,
-                            email: userData.email,
-                            role: userData.role,
-                            status: userData.status,
-                            hasPassword: !!userData.password
-                        });
-                    });
+                if (foundUser) {
+                    const userData = foundUser.data();
+                    const mockUser = {
+                        uid: userData.id,
+                        email: userData.email,
+                        displayName: userData.username,
+                        emailVerified: true,
+                        role: userData.role
+                    };
 
-                    const foundUser = usersSnapshot.docs.find(doc => {
-                        const userData = doc.data();
-                        const usernameMatch = userData.username === username || userData.email === username;
-                        const passwordMatch = userData.password === password;
-                        const statusMatch = userData.status === "active" || userData.status === "limited";
+                    localStorage.setItem("adminUser", JSON.stringify(mockUser));
+                    localStorage.setItem("isAdminLoggedIn", "true");
+                    localStorage.setItem("userRole", userData.role);
+                    localStorage.setItem("userStatus", userData.status);
 
-                        console.log("Checking user:", {
-                            username: userData.username,
-                            email: userData.email,
-                            usernameMatch,
-                            passwordMatch,
-                            statusMatch,
-                            userStatus: userData.status
-                        });
+                    await login(mockUser);
 
-                        return usernameMatch && passwordMatch && statusMatch;
-                    });
-
-                    if (foundUser) {
-                        const userData = foundUser.data();
-                        console.log("User found, logging in:", userData);
-
-                        const mockUser = {
-                            uid: userData.id,
-                            email: userData.email,
-                            displayName: userData.username,
-                            emailVerified: true,
-                            role: userData.role
-                        };
-
-                        localStorage.setItem("adminUser", JSON.stringify(mockUser));
-                        localStorage.setItem("isAdminLoggedIn", "true");
-                        localStorage.setItem("userRole", userData.role);
-                        localStorage.setItem("userStatus", userData.status);
-
-                        await login(mockUser);
-
-                        if (userData.role === "superadmin") {
-                            router.push("/admin-panel");
-                        } else {
-                            router.push("/dashboard");
-                        }
+                    if (userData.role === "superadmin") {
+                        router.push("/admin");
                     } else {
-                        console.log("No matching user found");
-                        setError("Invalid username or password");
+                        router.push("/dashboard");
                     }
-                } catch (dbError) {
-                    console.error("Database error:", dbError);
-                    setError("Login failed. Please try again.");
+                } else {
+                    setError("Invalid username or password");
                 }
+            } catch (dbError) {
+                console.error("Database error:", dbError);
+                setError("Login failed. Please try again.");
             }
         } catch {
             setError("Login failed. Please try again.");
@@ -146,12 +96,12 @@ const LoginPage: React.FC = () => {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-slate-50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+        <div className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-slate-50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
             <div className="max-w-md w-full">
                 {/* Login Card */}
                 <div className="bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden">
                     {/* Header */}
-                    <div className="bg-gradient-to-r from-blue-600 to-blue-700 px-8 py-6 text-center">
+                    <div className="bg-gradient-to-r from-orange-600 to-orange-700 px-8 py-6 text-center">
                         <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
                             <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
@@ -160,7 +110,7 @@ const LoginPage: React.FC = () => {
                         <h2 className="text-2xl font-bold text-white">
                             Admin Portal
                         </h2>
-                        <p className="text-blue-100 text-sm mt-2">
+                        <p className="text-orange-100 text-sm mt-2">
                             Secure access to donation management
                         </p>
                     </div>
@@ -185,7 +135,7 @@ const LoginPage: React.FC = () => {
                                             name="username"
                                             type="text"
                                             required
-                                            className="block w-full pl-10 pr-3 py-3 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors text-slate-900 placeholder-slate-500"
+                                            className="block w-full pl-10 pr-3 py-3 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-colors text-slate-900 placeholder-slate-500"
                                             placeholder="Enter your username"
                                             value={username}
                                             onChange={(e) => setUsername(e.target.value)}
@@ -208,7 +158,7 @@ const LoginPage: React.FC = () => {
                                             name="password"
                                             type="password"
                                             required
-                                            className="block w-full pl-10 pr-3 py-3 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors text-slate-900 placeholder-slate-500"
+                                            className="block w-full pl-10 pr-3 py-3 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-colors text-slate-900 placeholder-slate-500"
                                             placeholder="Enter your password"
                                             value={password}
                                             onChange={(e) => setPassword(e.target.value)}
@@ -227,7 +177,7 @@ const LoginPage: React.FC = () => {
                                 <button
                                     type="submit"
                                     disabled={isLoading}
-                                    className="w-full flex justify-center items-center py-3 px-4 border border-transparent rounded-xl text-sm font-semibold text-white bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 shadow-lg hover:shadow-xl"
+                                    className="w-full flex justify-center items-center py-3 px-4 border border-transparent rounded-xl text-sm font-semibold text-white bg-gradient-to-r from-orange-600 to-orange-700 hover:from-orange-700 hover:to-orange-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 shadow-lg hover:shadow-xl"
                                 >
                                     {isLoading ? (
                                         <>

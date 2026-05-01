@@ -13,65 +13,33 @@ export default function DisclaimerPage() {
         </h1>
 
         <p className="mb-4">
-          The developer of this website has been engaged{" "}
-          <strong>solely as an independent contractor</strong> to provide
-          design, development, and technical maintenance services. The developer{" "}
-          <strong>has no ownership interest</strong> in the website and does{" "}
-          <strong>not control, manage, supervise, or endorse</strong> any
-          business operations, content, financial transactions, or user
-          interactions conducted through it.
+          The developer of this website has been engaged <strong>solely as an independent technical contractor</strong> to provide design, development, and technical framework services. The developer <strong>has no ownership interest</strong>, no operational control, and <strong>absolutely no knowledge or oversight</strong> regarding the day-to-day use, content management, or business logic applied by the website owner.
         </p>
 
+        <h2 className="text-xl font-bold mt-8 mb-4">Zero-Knowledge & Operational Autonomy</h2>
         <p className="mb-4">
-          The developer <strong>expressly disclaims all warranties</strong>—
-          whether express, implied, or statutory—including but not limited to
-          warranties of merchantability, fitness for a particular purpose, and
-          non-infringement. <strong>No fiduciary, agency, partnership, or
-          joint-venture relationship</strong> exists between the developer, the
-          website owner, or its users beyond the limited scope of contracted
-          technical services.
+          The developer <strong>does not monitor, review, or authorize</strong> any content, transactions, or activities conducted through this platform. The delivery of technical services constitutes a one-time or recurring technical implementation and does not imply an ongoing relationship with the operational intent of the site. The developer is <strong>strictly a service provider</strong> and is not an officer, partner, or agent of the website's operating entity.
         </p>
 
+        <h2 className="text-xl font-bold mt-8 mb-4">Financial & Transactional Non-Affiliation</h2>
         <p className="mb-4">
-          Under no circumstances shall the developer be liable for any{" "}
-          <strong>
-            direct, indirect, incidental, consequential, special, exemplary, or
-            punitive damages
-          </strong>{" "}
-          arising from or related to:
+          The developer is <strong>not a party to any financial transactions</strong>, donations, or payment processing occurring on this site. All funds, data, and recipient information are managed exclusively by the website owner. The developer has <strong>no access to, control over, or benefit from</strong> any funds processed through the platform and disclaims all liability for financial mismanagement or fraudulent activities.
+        </p>
+
+        <h2 className="text-xl font-bold mt-8 mb-4">Liability Exclusion for Unlawful Use</h2>
+        <p className="mb-4">
+          Under no circumstances shall the developer be liable for any <strong>direct, indirect, or criminal activity</strong> arising from the misuse of this platform. This includes, but is not limited to:
         </p>
 
         <ul className="list-disc list-inside mb-4 space-y-1">
-          <li>use of or reliance on the website or its content,</li>
-          <li>financial transactions or user interactions,</li>
-          <li>
-            legal disputes, fraudulent activities, or regulatory violations by
-            the website owner or third parties,
-          </li>
-          <li>
-            any unlawful, unethical, or unauthorized use of the website.
-          </li>
+          <li>Fraudulent solicitations or deceptive practices by the client/owner.</li>
+          <li>Regulatory or legal violations of any jurisdiction.</li>
+          <li>Misappropriation of funds or data by third parties or the operating entity.</li>
+          <li>Any unlawful, unethical, or unauthorized use of the technical infrastructure.</li>
         </ul>
 
-        <p className="mb-4">
-          Technical maintenance or updates by the developer are provided{" "}
-          <strong>only to preserve functionality, stability, and security</strong>{" "}
-          and do not constitute approval, endorsement, or oversight of any
-          business, operational, or financial activity of the website or its
-          owner.
-        </p>
-
-        <p className="mb-4">
-          Users are solely responsible for conducting their own{" "}
-          <strong>research, verification, and due diligence</strong> before
-          engaging with the website or any related services. By accessing or
-          using the website, <strong>
-            all users agree to release, indemnify, and hold harmless the
-            developer
-          </strong>{" "}
-          from any and all claims, losses, liabilities, damages, or legal
-          consequences arising out of or related to the website, whether or not
-          such activities are lawful.
+        <p className="mt-8 p-4 bg-red-50 border-l-4 border-red-500 text-sm font-medium">
+          By using this site, users acknowledge that the technical developer is a neutral party providing infrastructure only and agree to release and hold the developer harmless from all claims related to the site's operations or any potential fraudulent activity.
         </p>
       </div>
     </main>

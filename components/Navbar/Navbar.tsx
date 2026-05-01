@@ -20,10 +20,10 @@ const Navbar = () => {
             <Link
               href="/"
               prefetch={true}
-              className="text-2xl font-bold text-slate-800 transition duration-300 hover:text-blue-600 flex items-center space-x-2"
+              className="text-2xl font-bold text-slate-800 transition duration-300 hover:text-orange-600 flex items-center space-x-2"
             >
-              <Heart className="w-6 h-6 text-blue-600" />
-              <span>givev</span>
+              <Heart className="w-6 h-6 text-orange-600" />
+              <span>allevi</span>
             </Link>
           </div>
 
@@ -34,7 +34,7 @@ const Navbar = () => {
               <span className="text-xs">Secure</span>
             </div>
             <div className="security-indicator">
-              <Shield className="w-4 h-4 text-blue-600" />
+              <Shield className="w-4 h-4 text-orange-600" />
               <span className="text-xs">Verified</span>
             </div>
           </div>
@@ -49,7 +49,7 @@ const Navbar = () => {
                     <>
                       {userRole === "superadmin" && (
                         <Link
-                          href="/admin-panel"
+                          href="/admin"
                           className="flex items-center space-x-2 px-4 py-2 text-slate-700 hover:text-purple-600 transition-colors"
                         >
                           <Shield className="w-4 h-4" />
@@ -58,7 +58,7 @@ const Navbar = () => {
                       )}
                       <Link
                         href="/dashboard"
-                        className="flex items-center space-x-2 px-4 py-2 text-slate-700 hover:text-blue-600 transition-colors"
+                        className="flex items-center space-x-2 px-4 py-2 text-slate-700 hover:text-orange-600 transition-colors"
                       >
                         <User className="w-4 h-4" />
                         <span>Dashboard</span>
